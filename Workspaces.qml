@@ -24,7 +24,7 @@ BarWidget {
   readonly property var geometry: Model.slotLayout(ids.map(function(id) {
     var ws = root.workspace(id)
     return ws ? ws.toplevels.values.length : 0
-  }), maxIcons, showIcons, cell, iconStep, Style.space(4))
+  }), maxIcons, showIcons, cell, iconStep, Style.space(4), numbers ? activeIndex : -1)
   readonly property real cell: Style.space(22)
   readonly property real inset: Style.space(3)
   readonly property real thickness: Math.min(barSize - Style.space(4), Style.space(24))
@@ -127,7 +127,7 @@ BarWidget {
         required property int modelData
         required property int index
         readonly property var ws: root.workspace(modelData)
-        readonly property var metrics: root.geometry[index] || ({offset: 0, extent: root.cell, visible: 0, overflow: 0})
+        readonly property var metrics: root.geometry[index] || ({offset: 0, extent: root.cell, visible: 0, overflow: 0, iconStart: root.cell})
         readonly property var windows: ws ? ws.toplevels.values : []
         readonly property bool selected: root.activeId === modelData
         readonly property bool occupied: ws !== null && ws.toplevels.values.length > 0
@@ -169,13 +169,12 @@ BarWidget {
         Text {
           x: (root.vertical ? slot.width : root.cell) / 2 - width / 2
           y: (root.vertical ? root.cell : slot.height) / 2 - height / 2
-          visible: root.numbers
+          visible: root.numbers && !slot.selected
           text: slot.modelData
           color: slot.markColor
-          opacity: slot.selected || slot.occupied ? 1 : 0.4
+          opacity: slot.occupied ? 1 : 0.4
           font.family: root.bar ? root.bar.fontFamily : Style.font.family
-          font.pixelSize: Style.font.bodySmall
-          font.bold: slot.selected
+          font.pixelSize: Style.font.body
         }
 
         Repeater {
@@ -184,8 +183,8 @@ BarWidget {
             id: appSlot
             required property var modelData
             required property int index
-            x: root.vertical ? 0 : root.cell + index * root.iconStep
-            y: root.vertical ? root.cell + index * root.iconStep : 0
+            x: root.vertical ? 0 : slot.metrics.iconStart + index * root.iconStep
+            y: root.vertical ? slot.metrics.iconStart + index * root.iconStep : 0
             width: root.vertical ? slot.width : root.iconStep
             height: root.vertical ? root.iconStep : slot.height
             AppIcon {
@@ -200,8 +199,8 @@ BarWidget {
         }
 
         Text {
-          x: root.vertical ? 0 : root.cell + slot.metrics.visible * root.iconStep
-          y: root.vertical ? root.cell + slot.metrics.visible * root.iconStep : 0
+          x: root.vertical ? 0 : slot.metrics.iconStart + slot.metrics.visible * root.iconStep
+          y: root.vertical ? slot.metrics.iconStart + slot.metrics.visible * root.iconStep : 0
           width: root.vertical ? slot.width : root.cell
           height: root.vertical ? root.cell : slot.height
           visible: slot.metrics.overflow > 0

@@ -19,7 +19,8 @@ omarchy plugin add https://github.com/DonovanSB/omarchy-workspaces.git --enable 
 ## Using it
 
 Click a workspace to switch, or use the mouse wheel to move between workspaces.
-Each monitor highlights its own active workspace. Supports horizontal and vertical bars.
+Each monitor highlights its own active workspace, hiding its number.
+Supports horizontal and vertical bars.
 
 Shows five workspace slots by default, plus any additional regular workspaces in use.
 Each group displays up to three window icons, with a `+N` counter for the rest.

@@ -15,15 +15,30 @@ assert.equal(model.adjacentId([1, 2, 8], 8, 120), 2);
 assert.equal(model.adjacentId([], 1, -120), 1);
 const layout = (...args) => JSON.parse(JSON.stringify(model.slotLayout(...args)));
 assert.deepEqual(layout([0, 2, 5], 3, true, 22, 18, 4), [
-  {offset: 0, extent: 22, visible: 0, overflow: 0},
-  {offset: 22, extent: 62, visible: 2, overflow: 0},
-  {offset: 84, extent: 102, visible: 3, overflow: 2}
+  {offset: 0, extent: 22, visible: 0, overflow: 0, iconStart: 22},
+  {offset: 22, extent: 62, visible: 2, overflow: 0, iconStart: 22},
+  {offset: 84, extent: 102, visible: 3, overflow: 2, iconStart: 22}
 ]);
 assert.deepEqual(layout([5, 0], 3, false, 22, 18, 4), [
-  {offset: 0, extent: 22, visible: 0, overflow: 0},
-  {offset: 22, extent: 22, visible: 0, overflow: 0}
+  {offset: 0, extent: 22, visible: 0, overflow: 0, iconStart: 22},
+  {offset: 22, extent: 22, visible: 0, overflow: 0, iconStart: 22}
 ]);
 // Closing a window must shrink its group and shift every following group.
 assert.equal(layout([1, 2, 0], 3, true, 22, 18, 4)[2].offset, 106);
 assert.equal(layout([1, 1, 0], 3, true, 22, 18, 4)[2].offset, 88);
-console.log('13 workspace selection, navigation, and icon layout checks passed.');
+// Active numbers disappear without leaving a label-sized gap before icons.
+assert.deepEqual(layout([1, 2], 3, true, 22, 18, 4, 0), [
+  {offset: 0, extent: 26, visible: 1, overflow: 0, iconStart: 4},
+  {offset: 26, extent: 62, visible: 2, overflow: 0, iconStart: 22}
+]);
+assert.deepEqual(layout([0, 5], 3, true, 22, 18, 4, 1), [
+  {offset: 0, extent: 22, visible: 0, overflow: 0, iconStart: 22},
+  {offset: 22, extent: 84, visible: 3, overflow: 2, iconStart: 4}
+]);
+// Empty active workspaces and hidden icons keep a usable click target.
+assert.equal(layout([0], 3, true, 22, 18, 4, 0)[0].extent, 22);
+assert.equal(layout([3], 3, false, 22, 18, 4, 0)[0].extent, 22);
+const switched = layout([1, 2], 3, true, 22, 18, 4, 1);
+assert.equal(switched[1].offset, 44);
+assert.equal(switched[1].extent, 44);
+console.log('19 workspace selection, navigation, and icon layout checks passed.');

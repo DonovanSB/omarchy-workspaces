@@ -19,13 +19,15 @@ function adjacentId(ids, activeId, delta) {
 }
 
 // Shared geometry keeps icon groups and the sliding highlight aligned.
-function slotLayout(counts, maxIcons, showIcons, cell, iconStep, padding) {
+function slotLayout(counts, maxIcons, showIcons, cell, iconStep, padding, activeIndex) {
   var offset = 0
-  return counts.map(function(count) {
+  return counts.map(function(count, index) {
     var visible = showIcons ? Math.min(count, maxIcons) : 0
     var overflow = showIcons ? Math.max(0, count - visible) : 0
-    var extent = cell + visible * iconStep + (overflow ? cell : 0) + (visible ? padding : 0)
-    var slot = {offset: offset, extent: extent, visible: visible, overflow: overflow}
+    var hideLabel = index === activeIndex
+    var iconStart = hideLabel && visible ? padding : cell
+    var extent = Math.max(cell, iconStart + visible * iconStep + (overflow ? cell : 0) + (visible ? padding : 0))
+    var slot = {offset: offset, extent: extent, visible: visible, overflow: overflow, iconStart: iconStart}
     offset += extent
     return slot
   })
