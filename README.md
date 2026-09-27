@@ -25,6 +25,9 @@ Shows five workspace slots by default, plus any additional regular workspaces in
 Each group displays up to three window icons, with a `+N` counter for the rest.
 Special workspaces remain accessible through Omarchy's shortcuts.
 
+Monochrome icons use Nerd Font app logos, falling back to category or window symbols.
+Without a Nerd Font, a simple window outline is shown.
+
 ## Settings
 
 Available in the bar editor or through
@@ -37,7 +40,6 @@ Available in the bar editor or through
 | `showBackground` | `false` | Background behind all workspaces |
 | `showAppIcons` | `true` | Open window icons |
 | `maxAppIcons` | `3` | Maximum icons per workspace |
-| `monochromeIcons` | `true` | Nerd Font icons instead of original app icons |
 | `animations` | `true` | Animate the active highlight |
 | `scrollToSwitch` | `true` | Switch using the mouse wheel |
 
@@ -53,7 +55,7 @@ To uninstall, use `omarchy plugin remove donovan.workspaces`.
 
 ```bash
 node tests/model.test.cjs
-node tests/icons.test.cjs
+node tests/icons.test.mjs
 omarchy plugin validate .
 ```
 
@@ -61,3 +63,6 @@ omarchy plugin validate .
 
 MIT.
 Icons use the installed [Nerd Fonts](https://www.nerdfonts.com/) font; no fonts are bundled.
+
+App mappings adapted from [WorkspaceIcons](https://github.com/SaifOmar/WorkspaceIcons) (MIT).
+See [third-party notices](THIRD_PARTY_NOTICES.md).

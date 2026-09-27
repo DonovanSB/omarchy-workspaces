@@ -194,7 +194,6 @@ BarWidget {
               height: width
               toplevel: appSlot.modelData
               tint: slot.markColor
-              monochrome: root.setting("monochromeIcons", true)
               opacity: slot.elsewhere && !slot.selected ? 0.8 : 1
             }
           }
