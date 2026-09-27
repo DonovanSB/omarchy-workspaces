@@ -16,6 +16,7 @@ function nerdGlyph(appClass, desktopId, categories) {
   var id = String(desktopId || "").toLowerCase()
   var rules = [
     [/spotify/, "\uf1bc"], [/whatsapp/, "\uf232"], [/telegram/, "\uf2c6"],
+    [/(^|[.-])slack([.-]|$)/, "\uf198"],
     [/discord|vesktop/, "\uf1ff"], [/firefox|librewolf|zen-browser/, "\uf269"],
     [/chrome|chromium/, "\uf268"], [/code|codium/, "\ue8da"],
     [/steam/, "\uf1b6"], [/foot|kitty|alacritty|ghostty|wezterm|konsole|terminal/, "\uf489"]

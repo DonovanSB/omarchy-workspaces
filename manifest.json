@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "donovan.workspaces",
   "name": "Workspaces",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "author": "Donovan Burbano",
   "license": "MIT",
   "description": "Animated workspace groups with open application icons for the Omarchy bar.",
