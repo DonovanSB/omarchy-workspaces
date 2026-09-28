@@ -4,6 +4,10 @@
 // See THIRD_PARTY_NOTICES.md. Match app IDs only, with token boundaries.
 export const rules = [
   {
+    "pattern": "^org\\.omarchy\\.agent$",
+    "icon": "\udb80\udd8d"
+  },
+  {
     "pattern": "1password|onepassword",
     "icon": "\udb82\udc81"
   },

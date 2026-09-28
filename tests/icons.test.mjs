@@ -14,6 +14,10 @@ assert.deepEqual(candidates({class: 'code', initialClass: 'code'}, 'code'), ['co
 assert.deepEqual(candidates(null, null), []);
 assert.equal(icons.nerdGlyph(candidates({}, 'google-chrome')[0], '', []), String.fromCodePoint(0xf02af));
 assert.equal(icons.nerdGlyph(candidates({}, 'foot')[0], '', []), String.fromCodePoint(0xf018d));
+// Agents opens a terminal with a dedicated app ID rather than "foot".
+assert.equal(icons.nerdGlyph('org.omarchy.agent', '', []), String.fromCodePoint(0xf018d));
+assert.equal(icons.nerdGlyph('', 'org.omarchy.agent', []), String.fromCodePoint(0xf018d));
+assert.equal(rules.resolve('org.omarchy.agent-helper', ''), '');
 // Brand collisions must not turn editors into VS Code or Flatpaks into GitHub.
 assert.equal(icons.nerdGlyph('slack', '', []), String.fromCodePoint(0xf04b1));
 assert.equal(icons.nerdGlyph('com.slack.Slack', '', []), String.fromCodePoint(0xf04b1));
